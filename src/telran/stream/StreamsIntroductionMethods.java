@@ -38,6 +38,6 @@ public class StreamsIntroductionMethods {
 		//no sorting
 		//no additional arrays, no any collections, no using standard shuffle method
 		//one code line
-		 new Random().ints(0,ar.length).distinct().limit(ar.length).forEachOrdered(i -> System.out.print(ar[i] + " "));
+		 new Random().ints(0,ar.length).distinct().limit(ar.length).forEach(i -> System.out.print(ar[i] + " "));
 	}
 }

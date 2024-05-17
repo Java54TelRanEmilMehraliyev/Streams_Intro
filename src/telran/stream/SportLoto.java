@@ -12,7 +12,7 @@ public class SportLoto {
 		// third argument amount of the random numbers
 		// Example: java -jar sportLoto 1 49 7
 		// 3, 10, 49, 1, 40, 6, 7
-		try { 
+		try {
 			if (args.length < 3) {
 				throw new IllegalArgumentException(
 						"Требуются три аргумента: минимальное значение, максимальное значение и количество чисел");
@@ -32,8 +32,8 @@ public class SportLoto {
 			}
 			Random random = new Random();
 			random.ints(min, max + 1).distinct().limit(count).forEach(i -> System.out.print(i + "\t"));
-		} catch(IllegalArgumentException e){
-			System.out.println("Ошибка: " + e.getMessage());	
+		} catch (IllegalArgumentException e) {
+			System.out.println("Ошибка: " + e.getMessage());
 		}
 	}
 }

@@ -2,14 +2,18 @@ package telran.stream.students;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.IntSummaryStatistics;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.junit.jupiter.api.Test;
 
 class ColledgeTests {
-private static final String NAME1 = null;
-private static final String NAME2 = null;
-private static final String NAME3 = null;
+private static final String NAME1 = "Emil";
+private static final String NAME2 = "Heydar";
+private static final String NAME3 = "Ilham";
 private static final int HOURS1 = 100;
 private static final int HOURS2 = 100;
 private static final int HOURS3 = 150;
@@ -22,7 +26,7 @@ Colledge colledge = new Colledge(new Student[] {st1, st2, st3});
 
 	@Test
 	void sortTest() {
-		Student[] expected = {st1, st3, st2};
+		Student[] expected = {st1, st2, st3};
 		assertArrayEquals(expected, sortStudents(colledge));
 	}
 	@Test
@@ -39,22 +43,30 @@ Colledge colledge = new Colledge(new Student[] {st1, st2, st3});
 		assertEquals(80, iss.getMax());
 	}
 	private static IntSummaryStatistics getMarksStatistics(Colledge coll) {
-		// TODO Auto-generated method stub
+		// DONE Auto-generated method stub
 		//returns summary statistics for marks of all colledge's students
-		return null;
+		return StreamSupport.stream(coll.spliterator(),false)
+				.flatMapToInt(s -> Arrays.stream(s.marks()))
+				.summaryStatistics();
 	}
 	static private IntSummaryStatistics getHoursStatistics(Colledge col) {
-		// TODO Auto-generated method stub
+		// DONE Auto-generated method stub
 		//returns IntSummaryStatistics of hours for all colledge's students
-		return null;
+		return StreamSupport.stream(col.spliterator(), false)
+				.mapToInt(s -> (s.hours()))
+				.summaryStatistics();
 	}
 	private static Student[] sortStudents(Colledge col) {
-		// TODO
+		// DONE
 		//consider getting stream from Iterable
 		//returns array of students sorted in descending order of the average marks
 		//in the case average marks are equaled there will be compared hours
 		//one code line
-		return null;
+		return StreamSupport.stream(col.spliterator(), false)
+				.sorted(Comparator.comparingDouble((Student s) -> 
+				Arrays.stream(s.marks()).average().orElse(0)).reversed()
+						.thenComparing(Student::hours))
+				.toArray(Student[]::new);
 	}
 	
 
